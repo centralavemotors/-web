@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { formatMoney, formatPrice } from "@/lib/format";
+import { PRICING_DISCLAIMER } from "@/lib/site";
 
 const TERMS = [24, 36, 48, 60, 72, 84];
 
@@ -52,7 +53,7 @@ export function PaymentEstimator({ price }: { price: number }) {
     <section id="payment" className="paper-panel p-6 sm:p-8">
       <h2 className="font-display text-4xl tracking-tight">Payment estimate</h2>
       <p className="mt-3 text-sm leading-relaxed text-[#4a463f]">
-        This is an estimate, not a credit offer. Enter your own annual percentage rate. Taxes, title, and registration or DMV fees are not included. Nothing here is an approval or a promised rate.
+        This is an estimate, not a credit offer. Enter your own annual percentage rate. {PRICING_DISCLAIMER.short} Nothing here is an approval or a promised rate.
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <div className="grid gap-2">

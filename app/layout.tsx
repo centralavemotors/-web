@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     template: "%s · Central Ave Motors",
   },
   description:
-    "Independent dealer of pre-owned luxury and performance cars in Yonkers, NY. Advertised prices include dealer charges. Nationwide shipping, with out-of-state registration and temporary tags.",
+    "Independent dealer of pre-owned luxury and performance cars in Yonkers, NY. Nationwide shipping, with out-of-state registration and temporary tags.",
   robots: indexable ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: {
     siteName: "Central Ave Motors",
@@ -56,7 +56,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable} ${fraunces.variable}`}>
-      <body className="min-h-dvh bg-background pb-[calc(4rem+env(safe-area-inset-bottom))] font-sans text-foreground antialiased md:pb-0">
+      <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[70] focus:bg-[#f6f4ef] focus:px-4 focus:py-3 focus:text-[#1c1b18]"

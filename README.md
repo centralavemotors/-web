@@ -83,4 +83,4 @@ Import the repository. Framework preset is Next.js. Set the environment variable
 
 The page is dark. Inventory photos stay on a white mat at their native size (`object-contain`), because AutoFunds studio shots are about 800–900px wide. The home hero is typographic. Set `heroMedia` in `lib/site.ts` when a brand still or film is ready. Do not point it at an inventory photo.
 
-The advertised-price disclaimer is `PRICING_DISCLAIMER` in `lib/site.ts`. The short line sits next to prices. The full line is in the footer and on `/legal`.
+The pricing disclaimer is `PRICING_DISCLAIMER` in `lib/site.ts`. `dealerFee` (650) is the only fee amount. The short line sits next to prices. The full line, marked pending compliance review, is in the footer and on `/legal`.

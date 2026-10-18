@@ -67,7 +67,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
   ];
 
   return (
-    <Container className="py-8 md:py-12">
+    <Container className="py-5 md:py-12">
       <TrackVehicleView vehicle={vehicle} />
       <JsonLd data={vehicleJsonLd(vehicle, pageUrl)} />
       <JsonLd data={breadcrumbJsonLd(vehicle, pageUrl)} />
@@ -88,7 +88,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
           <li className="text-[#f6f4ef]">{title}</li>
         </ol>
       </nav>
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start">
+      <div className="mt-4 grid gap-5 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-8">
         <VehicleGallery photos={vehicle.photos} title={title} />
         <DealSheet vehicle={vehicle} />
       </div>

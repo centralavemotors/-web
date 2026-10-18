@@ -58,13 +58,13 @@ export function DealSheet({ vehicle }: { vehicle: Vehicle }) {
   const ref = leadVehicleFrom(vehicle);
   const title = vehicleTitle(vehicle);
   return (
-    <aside className="paper-panel h-fit p-6 sm:p-7 lg:sticky lg:top-24">
+    <aside className="paper-panel h-fit p-4 sm:p-7 lg:sticky lg:top-24">
       <p className="text-xs uppercase tracking-[0.18em] text-[#4a463f]">
         {vehicle.year} · {vehicle.make}
       </p>
       <h1 className="mt-2 font-display text-5xl leading-[0.95] tracking-tight">{vehicle.model}</h1>
       {vehicle.trim ? <p className="mt-3 text-sm leading-relaxed text-[#4a463f]">{vehicle.trim}</p> : null}
-      <p className="mt-6 font-display text-4xl tracking-tight">{formatPrice(vehicle.price)}</p>
+      <p className="mt-4 font-display text-4xl tracking-tight sm:mt-6">{formatPrice(vehicle.price)}</p>
       <div className="mt-3">
         <PriceNote tone="paper" />
       </div>

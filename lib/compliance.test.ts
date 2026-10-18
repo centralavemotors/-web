@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, it } from "node:test";
-import { businessHours, phone, PRICING_DISCLAIMER } from "./site";
+import { businessHours, dealerFee, phone, PRICING_DISCLAIMER } from "./site";
 
 function filesIn(dir: string): string[] {
   const out: string[] = [];
@@ -21,14 +21,29 @@ describe("customer-facing compliance", () => {
     assert.equal(phone.e164, "+19142220156");
     assert.equal(businessHours.confirmed, false);
     assert.match(businessHours.summary, /Placeholder/);
-    assert.match(PRICING_DISCLAIMER.short, /DMV/);
-    assert.match(PRICING_DISCLAIMER.full, /not a credit offer/);
-    assert.ok(PRICING_DISCLAIMER.full.length > PRICING_DISCLAIMER.short.length);
+    assert.equal(dealerFee, 650);
+    assert.equal(
+      PRICING_DISCLAIMER.short,
+      "Price excludes $650 dealer fee, tax, title, and registration/DMV fees.",
+    );
+    assert.match(PRICING_DISCLAIMER.full, /PENDING COMPLIANCE REVIEW/);
+    assert.match(PRICING_DISCLAIMER.full, /\$650 dealer fee/);
   });
 
   it("does not mention retired brand names or the unconfirmed phone in the UI", () => {
     const roots = ["app", "components"];
-    const forbidden = [/driveyonkers/i, /yonkers auto gallery/i, /yonkersautogallery/i, /775-8019/, /7758019/];
+    const forbidden = [
+      /driveyonkers/i,
+      /yonkers auto gallery/i,
+      /yonkersautogallery/i,
+      /775-8019/,
+      /7758019/,
+      /includes our charges/i,
+      /includes dealer charges/i,
+      /advertised prices include/i,
+      /dealer charges are included/i,
+      /include all charges/i,
+    ];
     const offenders: string[] = [];
     for (const root of roots) {
       for (const file of filesIn(root)) {

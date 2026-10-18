@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { HoursList } from "@/components/hours-list";
 import { PageHeader } from "@/components/page-header";
-import { formatAddress, phone } from "@/lib/site";
+import { formatAddress, phone, PRICING_DISCLAIMER } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -22,10 +22,10 @@ const QUESTIONS: { q: string; a: ReactNode }[] = [
     a: "Yes. We arrange transport. The cost depends on distance and the carrier, so we quote it instead of publishing a flat fee.",
   },
   {
-    q: "What is included in the advertised price?",
+    q: "What is excluded from the price shown?",
     a: (
       <>
-        Dealer charges are included. Tax, title, and registration or DMV fees are not. Read the{" "}
+        {PRICING_DISCLAIMER.short} Read the{" "}
         <Link href="/legal#pricing" className="underline underline-offset-4">
           pricing disclosure
         </Link>

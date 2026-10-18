@@ -35,8 +35,8 @@ export function VehicleGallery({ photos, title }: { photos: VehiclePhoto[]; titl
           : undefined
       }
     >
-      <div className="bg-white p-3 ring-1 ring-white/15 sm:p-6">
-        <div className="relative mx-auto aspect-[4/3] w-full">
+      <div className="bg-white p-2 ring-1 ring-white/15 sm:p-6">
+        <div className="relative mx-auto aspect-[4/3] w-full max-md:max-h-52">
           <Image
             src={photo.src}
             alt={photo.alt}

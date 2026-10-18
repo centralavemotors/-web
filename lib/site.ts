@@ -85,14 +85,22 @@ export const logo: { src: string | null; alt: string } = {
   alt: "Central Ave Motors",
 };
 
+/** Dealer fee disclosed on top of the vehicle price. Change the amount here only. */
+export const dealerFee = 650;
+
+const dealerFeeLabel = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+}).format(dealerFee);
+
 /**
  * The only pricing disclaimer. Vehicle prices, the footer, and the legal page
- * all read this object. Compliance edits belong here.
+ * all read this object. The fee amount comes from `dealerFee`.
  */
 export const PRICING_DISCLAIMER = {
-  short:
-    "Advertised price includes dealer charges except tax, title, and registration or DMV fees.",
-  full: "New York requires advertised vehicle prices to include all charges imposed by the dealer, except taxes and registration, title, plate, and other DMV fees. The price shown for each vehicle is that advertised price. Dealer charges are included in the price shown; this site does not list a separate dealer fee on top of it. Taxes, title, registration, and DMV fees are extra and depend on where the vehicle will be registered. Any charge that is not already included will be disclosed before you agree to buy. The payment estimator uses only the price, down payment, term, and annual percentage rate you enter. It is an illustration, not a credit offer, an approval, or a promised rate. Inventory and availability can change. Confirm with the dealership that a vehicle is still for sale before you travel or send funds. This disclosure is a working draft for the dealership's compliance contact to review before launch.",
+  short: `Price excludes ${dealerFeeLabel} dealer fee, tax, title, and registration/DMV fees.`,
+  full: `PENDING COMPLIANCE REVIEW. This paragraph is a placeholder, not a finished legal disclosure. The price shown excludes a ${dealerFeeLabel} dealer fee, tax, title, and registration/DMV fees. The payment estimator is an illustration, not a credit offer, an approval, or a promised rate. Replace this text after compliance review.`,
 } as const;
 
 export function siteUrl() {

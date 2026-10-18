@@ -72,7 +72,7 @@ export default async function HomePage() {
             Pre-owned luxury, without the runaround.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#c9c3b6]">
-            An independent dealer on Central Park Avenue. Every advertised price includes our charges. Buy here, or from another state: we arrange shipping and handle out-of-state registration and temporary tags.
+            An independent dealer on Central Park Avenue. Buy here, or from another state: we arrange shipping and handle out-of-state registration and temporary tags.
           </p>
           <p className="mt-5 text-sm">
             <Link href="/inventory" className="underline decoration-[#9f1c1c] underline-offset-4">
