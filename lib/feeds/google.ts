@@ -1,5 +1,5 @@
 import { vehicleSummary, vehicleTitle } from "../format";
-import { address } from "../site";
+import { address, headlinePrice } from "../site";
 import { escapeXml, xmlText } from "../xml";
 import type { BodyStyle, Vehicle } from "../inventory/types";
 
@@ -27,7 +27,7 @@ function itemXml(vehicle: Vehicle, pageUrl: string, storeCode: string) {
     primary ? xmlText("g:image_link", primary.src) : "",
     ...rest.map((photo) => xmlText("g:additional_image_link", photo.src)),
     xmlText("g:availability", "in_stock"),
-    xmlText("g:price", `${vehicle.price.toFixed(2)} USD`),
+    xmlText("g:price", `${headlinePrice(vehicle.price).toFixed(2)} USD`),
     xmlText("g:condition", "used"),
     xmlText("g:brand", vehicle.make),
     xmlText(

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, it } from "node:test";
-import { businessHours, dealerFee, phone, PRICING_DISCLAIMER } from "./site";
+import { businessHours, dealerFee, feedsEnabled, headlinePrice, headlinePriceMode, phone, PRICING_COPY, PRICING_DISCLAIMER } from "./site";
 
 function filesIn(dir: string): string[] {
   const out: string[] = [];
@@ -10,7 +10,7 @@ function filesIn(dir: string): string[] {
     const full = path.join(dir, entry);
     const stat = statSync(full);
     if (stat.isDirectory()) out.push(...filesIn(full));
-    else if (/\.(tsx?|css|json|svg|md)$/.test(entry)) out.push(full);
+    else if (/\.(tsx?|css|json|svg|md)$/.test(entry) && !entry.endsWith(".test.ts")) out.push(full);
   }
   return out;
 }
@@ -22,12 +22,13 @@ describe("customer-facing compliance", () => {
     assert.equal(businessHours.confirmed, false);
     assert.match(businessHours.summary, /Placeholder/);
     assert.equal(dealerFee, 650);
-    assert.equal(
-      PRICING_DISCLAIMER.short,
-      "Price excludes $650 dealer fee, tax, title, and registration/DMV fees.",
-    );
-    assert.match(PRICING_DISCLAIMER.full, /PENDING COMPLIANCE REVIEW/);
-    assert.match(PRICING_DISCLAIMER.full, /\$650 dealer fee/);
+    assert.equal(headlinePriceMode, "list");
+    assert.equal(headlinePrice(1000), 1000);
+    assert.equal(feedsEnabled(), true);
+    assert.equal(PRICING_COPY.disclaimer, "Price excludes sales tax and NYS DMV title and registration fees.");
+    assert.equal(PRICING_DISCLAIMER.short, PRICING_COPY.disclaimer);
+    assert.equal(PRICING_DISCLAIMER.full, PRICING_COPY.disclaimer);
+    assert.equal(PRICING_COPY.disclaimer.includes("PENDING COMPLIANCE REVIEW"), false);
   });
 
   it("does not mention retired brand names or the unconfirmed phone in the UI", () => {
@@ -54,6 +55,28 @@ describe("customer-facing compliance", () => {
       }
     }
     assert.deepEqual(offenders, []);
+  });
+
+  it("uses one pricing sentence and no fee claims", () => {
+    const forbidden = [
+      /every advertised price includes our charges/i,
+      /doc(?:umentation)?[\s-]+fees?/i,
+      /no hidden fees/i,
+      /processing[\s-]+fees?/i,
+      /\$650/,
+    ];
+    const files = ["app", "components", "lib", "data"].flatMap((root) => filesIn(root)).concat("README.md", ".env.example");
+    const offenders: string[] = [];
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      for (const pattern of forbidden) {
+        if (pattern.test(text)) offenders.push(`${file} matched ${pattern}`);
+      }
+    }
+    assert.deepEqual(offenders, []);
+    for (const file of ["app/legal/page.tsx", "app/terms/page.tsx", "app/privacy/page.tsx", "app/accessibility/page.tsx"]) {
+      assert.match(readFileSync(file, "utf8"), /placeholder|Draft/);
+    }
   });
 
   it("uses the configured phone wherever a phone number is shown", () => {

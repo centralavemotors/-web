@@ -10,7 +10,7 @@ import { formatMiles, formatPrice, vehicleTitle } from "@/lib/format";
 import { buildCatalog } from "@/lib/inventory/catalog";
 import { selectFeatured } from "@/lib/inventory/featured";
 import { getInventory } from "@/lib/inventory";
-import { directionsHref, formatAddress, heroMedia, mapEmbedSrc } from "@/lib/site";
+import { directionsHref, formatAddress, headlinePrice, heroMedia, mapEmbedSrc } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -123,7 +123,7 @@ export default async function HomePage() {
                 </p>
                 <h3 className="mt-3 font-display text-5xl leading-none tracking-tight">{lead.model}</h3>
                 {lead.trim ? <p className="mt-3 text-sm text-[#4a463f]">{lead.trim}</p> : null}
-                <p className="mt-8 font-display text-4xl">{formatPrice(lead.price)}</p>
+                <p className="mt-8 font-display text-4xl">{formatPrice(headlinePrice(lead.price))}</p>
                 <p className="mt-2 text-sm text-[#4a463f]">
                   {formatMiles(lead.miles)}
                   {lead.color ? ` · ${lead.color}` : ""}

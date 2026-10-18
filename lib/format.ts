@@ -1,4 +1,5 @@
 import type { Vehicle } from "./inventory/types";
+import { headlinePrice } from "./site";
 
 export function formatPrice(amount: number) {
   return new Intl.NumberFormat("en-US", {
@@ -43,7 +44,7 @@ export function vehicleSummary(vehicle: Vehicle) {
     `${formatMiles(vehicle.miles)}.`,
     vehicle.color ? `Exterior: ${vehicle.color}.` : null,
     `Pre-owned at Central Ave Motors in Yonkers, NY.`,
-    `Advertised price ${formatPrice(vehicle.price)}.`,
+    `Advertised price ${formatPrice(headlinePrice(vehicle.price))}.`,
   ];
   return bits.filter(Boolean).join(" ");
 }

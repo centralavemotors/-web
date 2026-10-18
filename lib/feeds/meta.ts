@@ -1,5 +1,5 @@
 import { vehicleSummary, vehicleTitle } from "../format";
-import { address } from "../site";
+import { address, headlinePrice } from "../site";
 import { escapeXml, xmlTag, xmlText } from "../xml";
 import type { BodyStyle, Vehicle } from "../inventory/types";
 
@@ -45,7 +45,7 @@ function listingXml(vehicle: Vehicle, pageUrl: string, dealerId: string) {
       xmlTag("mileage", [xmlText("value", vehicle.miles), xmlText("unit", "MI")].join("")),
       images,
       xmlText("body_style", META_BODY[vehicle.body]),
-      xmlText("price", `${vehicle.price.toFixed(2)} USD`),
+      xmlText("price", `${headlinePrice(vehicle.price).toFixed(2)} USD`),
       xmlText("exterior_color", vehicle.color ?? "Not specified"),
       xmlText("state_of_vehicle", "Used"),
       xmlText("availability", "AVAILABLE"),

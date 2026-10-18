@@ -12,7 +12,7 @@ import { formatMiles, vehicleSummary, vehicleTitle } from "@/lib/format";
 import { getInventory, getVehicleBySlug } from "@/lib/inventory";
 import { leadVehicleFrom } from "@/lib/lead-vehicle";
 import { breadcrumbJsonLd, vehicleJsonLd } from "@/lib/seo";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, headlinePrice } from "@/lib/site";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -110,7 +110,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
         </dl>
       </section>
       <div className="mt-14 grid gap-6 lg:grid-cols-2">
-        <PaymentEstimator price={vehicle.price} />
+        <PaymentEstimator price={headlinePrice(vehicle.price)} />
         <section id="shipping" className="border border-white/15 p-6 sm:p-8">
           <h2 className="font-display text-4xl tracking-tight">Shipping quote</h2>
           <p className="mt-3 text-sm leading-relaxed text-[#c9c3b6]">

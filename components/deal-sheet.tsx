@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { track } from "@/lib/analytics";
 import { formatMiles, formatPrice, vehicleTitle } from "@/lib/format";
+import { headlinePrice } from "@/lib/site";
 import { leadVehicleFrom, type LeadVehicle } from "@/lib/lead-vehicle";
 import type { Vehicle } from "@/lib/inventory/types";
 import { LeadForm } from "./lead-form";
@@ -64,7 +65,7 @@ export function DealSheet({ vehicle }: { vehicle: Vehicle }) {
       </p>
       <h1 className="mt-2 font-display text-5xl leading-[0.95] tracking-tight">{vehicle.model}</h1>
       {vehicle.trim ? <p className="mt-3 text-sm leading-relaxed text-[#4a463f]">{vehicle.trim}</p> : null}
-      <p className="mt-4 font-display text-4xl tracking-tight sm:mt-6">{formatPrice(vehicle.price)}</p>
+      <p className="mt-4 font-display text-4xl tracking-tight sm:mt-6">{formatPrice(headlinePrice(vehicle.price))}</p>
       <div className="mt-3">
         <PriceNote tone="paper" />
       </div>

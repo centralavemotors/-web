@@ -1,4 +1,5 @@
 import type { Vehicle } from "./inventory/types";
+import { headlinePrice } from "./site";
 
 export type LeadVehicle = {
   vin: string;
@@ -19,7 +20,7 @@ export function leadVehicleFrom(vehicle: Vehicle): LeadVehicle {
     make: vehicle.make,
     model: vehicle.model,
     trim: vehicle.trim ?? undefined,
-    price: String(vehicle.price),
+    price: String(headlinePrice(vehicle.price)),
     exteriorColor: vehicle.color ?? undefined,
     odometer: String(vehicle.miles),
     stock: vehicle.stock ?? undefined,

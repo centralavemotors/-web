@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatMiles, formatPrice, vehicleTitle } from "@/lib/format";
+import { headlinePrice } from "@/lib/site";
 import type { Vehicle } from "@/lib/inventory/types";
 
 export function VehicleCard({
@@ -39,7 +40,7 @@ export function VehicleCard({
         <h3 className="mt-2 font-display text-3xl leading-none tracking-tight">{vehicle.model}</h3>
         {vehicle.trim ? <p className="mt-2 line-clamp-2 text-sm text-[#4a463f]">{vehicle.trim}</p> : null}
         <p className="mt-auto flex items-end justify-between gap-3 pt-5">
-          <span className="font-display text-2xl leading-none">{formatPrice(vehicle.price)}</span>
+          <span className="font-display text-2xl leading-none">{formatPrice(headlinePrice(vehicle.price))}</span>
           <span className="text-sm text-[#4a463f]">{formatMiles(vehicle.miles)}</span>
         </p>
         <span className="sr-only">View {title}</span>

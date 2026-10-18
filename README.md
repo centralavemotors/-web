@@ -41,6 +41,7 @@ Copy `.env.example` to `.env.local`. The site runs with none of them set.
 | `META_CAPI_ACCESS_TOKEN` | Server event on a successful lead. Failures are swallowed. |
 | `META_CAPI_TEST_EVENT_CODE` | Optional Meta test code. |
 | `GOOGLE_STORE_CODE` | Google Vehicle Ads store code and Meta dealer id. Defaults to `CAM-YONKERS`. |
+| `FEEDS_ENABLED` | Public ad feeds stay on unless this is exactly `false`. |
 
 Phone, hours, hero media, logo, and the pricing disclaimer are code config in `lib/site.ts`, not environment variables. Hours are placeholders (`businessHours.confirmed` is `false`) and are omitted from schema.org until they are confirmed.
 
@@ -70,6 +71,7 @@ Without `RESEND_API_KEY` and `LEAD_FROM_EMAIL`, the route logs the ADF and retur
 
 - Google Vehicle Ads: `/feeds/google-vehicle-ads.xml`
 - Meta automotive catalog: `/feeds/meta-automotive.xml`
+- Both use `headlinePrice`. They stay on unless `FEEDS_ENABLED=false`.
 - `app/sitemap.ts` lists static pages and every vehicle.
 - `app/robots.ts` disallows `/` until `ROBOTS_INDEX=true`.
 
@@ -83,4 +85,4 @@ Import the repository. Framework preset is Next.js. Set the environment variable
 
 The page is dark. Inventory photos stay on a white mat at their native size (`object-contain`), because AutoFunds studio shots are about 800–900px wide. The home hero is typographic. Set `heroMedia` in `lib/site.ts` when a brand still or film is ready. Do not point it at an inventory photo.
 
-The pricing disclaimer is `PRICING_DISCLAIMER` in `lib/site.ts`. `dealerFee` (650) is the only fee amount. The short line sits next to prices. The full line, marked pending compliance review, is in the footer and on `/legal`.
+The only pricing sentence is `PRICING_COPY.disclaimer` in `lib/site.ts`. The note beside prices, the footer, and Terms and `/legal` all use it. `headlinePriceMode` defaults to `list`, so the page, JSON-LD, and ad feeds publish the inventory price from `headlinePrice`. `dealerFee` is added only when that mode is `allIn`.

@@ -1,5 +1,5 @@
 import { vehicleSummary, vehicleTitle } from "./format";
-import { address, phone, siteName, siteUrl } from "./site";
+import { address, headlinePrice, phone, siteName, siteUrl } from "./site";
 import type { Vehicle } from "./inventory/types";
 
 export function dealerJsonLd() {
@@ -49,7 +49,7 @@ export function vehicleJsonLd(vehicle: Vehicle, pageUrl: string) {
     },
     offers: {
       "@type": "Offer",
-      price: vehicle.price,
+      price: headlinePrice(vehicle.price),
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       url: pageUrl,

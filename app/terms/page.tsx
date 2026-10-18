@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { DraftNotice, PageHeader } from "@/components/page-header";
-import { phone } from "@/lib/site";
+import { phone, PRICING_COPY } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms",
@@ -21,9 +21,9 @@ export default function TermsPage() {
           The site lists pre-owned vehicles offered by Central Ave Motors in Yonkers, NY. A vehicle can sell before the page is updated. Call {phone.display} to confirm it is still available.
         </p>
         <p>
-          Advertised prices follow the{" "}
+          {PRICING_COPY.disclaimer}{" "}
           <Link href="/legal#pricing" className="underline underline-offset-4">
-            pricing disclosure
+            Pricing disclosure
           </Link>
           . Payment figures are estimates based on numbers you enter. They are not credit offers.
         </p>

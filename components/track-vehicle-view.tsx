@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { track } from "@/lib/analytics";
+import { headlinePrice } from "@/lib/site";
 
 export function TrackVehicleView({
   vehicle,
@@ -16,7 +17,7 @@ export function TrackVehicleView({
         year: vehicle.year,
         make: vehicle.make,
         model: vehicle.model,
-        price: vehicle.price,
+        price: headlinePrice(vehicle.price),
         slug: vehicle.slug,
       },
     });

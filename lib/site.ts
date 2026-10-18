@@ -85,22 +85,39 @@ export const logo: { src: string | null; alt: string } = {
   alt: "Central Ave Motors",
 };
 
-/** Dealer fee disclosed on top of the vehicle price. Change the amount here only. */
+/**
+ * Added to the inventory price only when `headlinePriceMode` is "allIn".
+ * Change the amount here only. It is not published while the mode is "list".
+ */
 export const dealerFee = 650;
 
-const dealerFeeLabel = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-}).format(dealerFee);
+/** "list" publishes the inventory price. "allIn" adds `dealerFee`. */
+export const headlinePriceMode: "list" | "allIn" = "list";
 
 /**
- * The only pricing disclaimer. Vehicle prices, the footer, and the legal page
- * all read this object. The fee amount comes from `dealerFee`.
+ * The one published price. The vehicle page, inventory cards, JSON-LD offer,
+ * and ad feeds all call this.
  */
+export function headlinePrice(listPrice: number) {
+  return headlinePriceMode === "allIn" ? listPrice + dealerFee : listPrice;
+}
+
+/** Public ad feeds stay on unless this is exactly "false". */
+export function feedsEnabled() {
+  return process.env.FEEDS_ENABLED !== "false";
+}
+
+/**
+ * The only pricing sentence. The note beside prices, the footer, and
+ * Terms/legal all read `disclaimer`.
+ */
+export const PRICING_COPY = {
+  disclaimer: "Price excludes sales tax and NYS DMV title and registration fees.",
+} as const;
+
 export const PRICING_DISCLAIMER = {
-  short: `Price excludes ${dealerFeeLabel} dealer fee, tax, title, and registration/DMV fees.`,
-  full: `PENDING COMPLIANCE REVIEW. This paragraph is a placeholder, not a finished legal disclosure. The price shown excludes a ${dealerFeeLabel} dealer fee, tax, title, and registration/DMV fees. The payment estimator is an illustration, not a credit offer, an approval, or a promised rate. Replace this text after compliance review.`,
+  short: PRICING_COPY.disclaimer,
+  full: PRICING_COPY.disclaimer,
 } as const;
 
 export function siteUrl() {
